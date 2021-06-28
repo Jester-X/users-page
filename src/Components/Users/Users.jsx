@@ -3,21 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 import style from "./Users.module.scss";
 import UserModal from "./UserModal/UserModal";
-import { requestUsers } from "../../redux/users-reducer";
+import { requestUsers, requestSelectedUser } from "../../redux/users-reducer";
 
 const Users = () => {
   const dispatch = useDispatch();
   const usersList = useSelector((state) => state.users.usersList);
+  const selectedUser = useSelector((state) => state.users.selectedUser);
   const isFetching = useSelector((state) => state.users.isFetching);
 
-  const [currUser, setCurrUser] = useState({})
   const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => dispatch(requestUsers()), []);
 
-  const handleClick = (value) => {
-    console.log(value);
-    
+  const openModal = (userId) => {
+    dispatch(requestSelectedUser(userId));
     setModalActive(true);
   };
 
@@ -30,22 +29,18 @@ const Users = () => {
           <div className={style.usersList}>
             {Object.entries(usersList).map(([key, value]) => {
               return (
-                <>
-                  <button key={key} onClick={() => handleClick(value)}>
-                    {value.Name}, <i>{value.Age} y.o.</i>
-                  </button>
-                  <UserModal
-            user={value}
-            key={key}
-            active={modalActive}
-            setActive={setModalActive}
-          />
-                </>
+                <button key={key} onClick={() => openModal(key)}>
+                  {value.Name}, <i>{value.Age} y.o.</i>
+                </button>
               );
             })}
-            
           </div>
         )}
+        <UserModal
+          user={selectedUser}
+          active={modalActive}
+          setActive={setModalActive}
+        />
       </main>
     </>
   );

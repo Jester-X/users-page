@@ -9,4 +9,7 @@ export const usersAPI = {
   requestUsers() {
     return instance.get().then(res => res.data);
   },
+  requestSelectedUser(userId) {
+    return instance.get(`${userId}`).then(res => res.data)
+  }
 };
