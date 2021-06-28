@@ -1,0 +1,41 @@
+.main {
+  background-color: rgba(202, 177, 226, 0.25);
+  overflow: auto;
+  margin: 0 auto;
+  margin-top: 1vh;
+  width: 90vw;
+  max-width: 800px;
+  max-height: 85vh;
+  border: 1px solid rgb(238, 152, 212);
+  border-radius: 3%;
+
+  .usersList {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    align-items: center;
+
+    button {
+      margin: 1rem 2rem;
+      padding: 1rem;
+      cursor: pointer;
+      border: 1.5px solid lightblue;
+      border-radius: 8px;
+      background-color: lightcoral;
+      opacity: 1;
+      text-align: center;
+      transition: box-shadow .28s ease;
+
+      &:hover {
+        box-shadow: 0px 0px 13.5px azure;
+      }
+      
+    
+
+    }
+
+    
+  }
+}

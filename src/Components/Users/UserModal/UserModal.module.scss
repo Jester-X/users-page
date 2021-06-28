@@ -1,0 +1,47 @@
+.Overlay {
+  width: 100vw;
+  height: 100vh;
+  background-color: #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 2000ms ease-in-out;
+}
+
+.Modal {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  position: absolute;
+  padding: 8px;
+  background-color: lightcoral;
+  border-radius: 13px;
+  border: 3px solid pink;
+  bottom: 10vh;
+  top: 10vh;
+  right: 10vw;
+  left: 10vw;
+  max-height: 70vh;
+  max-width: 90vw;
+
+  .buttons {
+      display: flex;
+      justify-content: space-evenly;
+    button {
+      border: none;
+      border-radius: 10px;
+      background-color: #111;
+      color: azure;
+      padding: 12px 24px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  }
+}
