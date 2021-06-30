@@ -31,50 +31,76 @@
   right: 10vw;
   left: 10vw;
   min-height: 400px;
-  max-height: 80vh;
+  max-height: 85vh;
   max-width: 600px;
 
-  h2 {
+  .field {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
     background-color: seashell;
     border: 2px solid black;
     border-radius: 10px;
-    padding: 12px 24px;
+    margin: 14px;
+    padding: 8px 8px;
     text-align: center;
-    cursor: pointer;
-    &.userName {
-      font-size: 32px;
-      font-weight: bold;
+
+    overflow: hidden;
+    label {
+      width: 70px;
+      font-size: 16px;
     }
+    input {
+      flex: 1;
+      font-size: 16px;
+      margin-right: 5px;
+      line-height: 25px;
+      padding: 2px;
+      width: 30vw;
+    }
+    span {
+      
+      margin: 3px 3px;
+      font-size: 16px;
+      color: red;
+    }
+  }
+  .error {
+    color: red;
+    font-size: 16px;
+    margin: 5px auto;
   }
 
   .buttons {
+      
+    text-align: center;
     button {
       border: none;
       border-radius: 10px;
       background-color: #111;
       color: azure;
       padding: 12px 24px;
-      font-size: 24px;
+      font-size: 20px;
       cursor: pointer;
       margin: 0.8rem 1rem 0.5rem 1rem;
       transition: all 0.32s ease;
-      
     }
 
-    .editBtn {
+    .createBtn {
       &:hover {
-        box-shadow: 0px 0px 15px royalblue;
-        color: royalblue;
+        box-shadow: 0px 0px 15px greenyellow;
+        color: greenyellow;
       }
-      
     }
-    .deleteBtn {
+    .resetBtn {
       &:hover {
-        box-shadow: 0px 0px 15px red;
-        color:red
+        box-shadow: 0px 0px 15px orangered;
+        color: orangered;
       }
     }
   }
+
 
   .close {
     position: absolute;
@@ -83,24 +109,25 @@
     width: 32px;
     height: 32px;
     opacity: 0.3;
-    transition: opacity .25s ease;
+    transition: opacity 0.25s ease;
     cursor: pointer;
     &:hover {
-    opacity: 1;
+      opacity: 1;
     }
-    &:before, &:after {
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 33px;
-    width: 2px;
-    background-color: #333;
+    &:before,
+    &:after {
+      position: absolute;
+      left: 15px;
+      content: " ";
+      height: 33px;
+      width: 2px;
+      background-color: #333;
     }
     &:before {
-    transform: rotate(45deg);
+      transform: rotate(45deg);
     }
     &:after {
-    transform: rotate(-45deg);
+      transform: rotate(-45deg);
     }
   }
 }

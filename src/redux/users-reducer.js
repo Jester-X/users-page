@@ -1,7 +1,7 @@
 import { usersAPI } from "../api/api.js";
 
 const SET_USERS = "SET_USERS";
-const SET_SELECTED_USER = "SET_SELECTED_USER"
+const SET_SELECTED_USER = "SET_SELECTED_USER";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 let initialState = {
@@ -16,11 +16,17 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, isFetching: action.isFetching };
 
     case SET_USERS: {
-      return {...state, usersList: action.usersList } ;
+      return { ...state, usersList: action.usersList };
     }
 
     case SET_SELECTED_USER: {
-      return {...state, selectedUser: action.user}
+      return {
+        ...state,
+        selectedUser: {
+          ...action.user,
+          id: action.userId
+        },
+      };
     }
 
     default:
@@ -38,10 +44,11 @@ const setUsers = (usersList) => ({
   usersList,
 });
 
-const setSelectedUser = (user) => ({
+const setSelectedUser = (user, userId) => ({
   type: SET_SELECTED_USER,
-  user
-})
+  user,
+  userId,
+});
 
 export const requestUsers = () => async (dispatch) => {
   dispatch(toggleIsFetching(true));
@@ -51,8 +58,25 @@ export const requestUsers = () => async (dispatch) => {
 };
 
 export const requestSelectedUser = (userId) => async (dispatch) => {
-  let user = await usersAPI.requestSelectedUser(userId)
-  dispatch(setSelectedUser(user))
-} 
+  dispatch(toggleIsFetching(true));
+  let user = await usersAPI.requestSelectedUser(userId);
+  dispatch(toggleIsFetching(false));
+  dispatch(setSelectedUser(user, userId));
+};
+
+export const createUser = (user) => async (dispatch) => {
+ dispatch(toggleIsFetching(true));
+  await usersAPI.createUser(user)
+ dispatch(toggleIsFetching(false));
+ dispatch(requestUsers())
+}
+
+export const deleteUser = (userId) => async (dispatch) => {
+  dispatch(toggleIsFetching(true));
+  await usersAPI.deleteUser(userId);
+  dispatch(toggleIsFetching(false));
+  dispatch(setSelectedUser({}));
+  dispatch(requestUsers())
+};
 
 export default usersReducer;

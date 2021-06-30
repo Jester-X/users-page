@@ -7,9 +7,26 @@ const instance = axios.create({
 
 export const usersAPI = {
   requestUsers() {
-    return instance.get().then(res => res.data);
+    return instance.get().then((res) => res.data);
   },
   requestSelectedUser(userId) {
-    return instance.get(`${userId}`).then(res => res.data)
-  }
+    return instance.get(`${userId}`).then((res) => res.data);
+  },
+  createUser({Name, Age, Email, Address}) {
+    return instance
+      .post(
+        ``,
+        {"Name": Name, "Age": parseInt(Age), "Email":Email, "Address":Address },
+        {
+          "headers": {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((err) => console.log(err));
+  },
+  deleteUser(userId) {
+    return instance
+      .delete(`${userId}`)
+  },
 };

@@ -1,7 +1,5 @@
 let initialState = {
-    initialized: false,
-    isLoading: false,
-    errors: []
+    error: ''
 }
 
 const uiReducer = (state = initialState, action) => {
