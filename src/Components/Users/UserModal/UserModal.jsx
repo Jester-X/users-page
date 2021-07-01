@@ -1,20 +1,37 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Modal from "react-modal";
 
+import EditForm from "./EditForm/EditForm";
 import style from "./UserModal.module.scss";
-import { deleteUser } from "../../../redux/users-reducer";
+import {
+  deleteUser,
+  requestSelectedUser,
+  updateUser,
+} from "../../../redux/users-reducer";
+import { useTranslation } from "react-i18next";
 
 Modal.setAppElement("#root");
 
 const UserModal = ({ active, setActive, user, isFetching }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [editMode, setEditMode] = useState(false);
 
   const onEdit = () => {
     setEditMode(true);
   };
+  const onEditSubmit = (userObj) => {
+    dispatch(updateUser(userObj, user.id));
+    setEditMode(false);
+  };
+
+  const onEditCancel = () => {
+    dispatch(requestSelectedUser(user.id));
+    setEditMode(false);
+  };
+
   const onDelete = (userId) => {
     dispatch(deleteUser(userId));
     setActive(false);
@@ -23,42 +40,34 @@ const UserModal = ({ active, setActive, user, isFetching }) => {
   return (
     <Modal
       isOpen={active}
-      onRequestClose={() => setActive(false)}
+      onRequestClose={() => {
+        setEditMode(false);
+        setActive(false);
+      }}
       contentLabel="User Info"
       className={style.Modal}
       overlayClassName={style.Overlay}
     >
+      <h2>{t("users.userModal.title")}</h2>
       {isFetching ? (
-        "Loading.."
+        t("preloader")
       ) : (
-        <>
-          <h2 className={style.userName}>{user.Name}</h2>
-          <h2>
-            <span>Age:</span> <i>{user.Age} years old</i>
-          </h2>
-          <h2>
-            <span>Email:</span> {user.Email}
-          </h2>
-          {user.Address && (
-            <h2>
-              <span>Address:</span> {user.Address}
-            </h2>
-          )}
-
-          <div className={style.buttons}>
-            <button
-              className={style.deleteBtn}
-              onClick={() => onDelete(user.id)}
-            >
-              Delete
-            </button>
-            <button className={style.editBtn} onClick={onEdit}>
-              Edit
-            </button>
-          </div>
-          <span className={style.close} onClick={() => setActive(false)}></span>
-        </>
+        <EditForm
+          user={user}
+          onEdit={onEdit}
+          onSubmit={onEditSubmit}
+          onCancel={onEditCancel}
+          onDelete={onDelete}
+          editMode={editMode}
+        />
       )}
+      <span
+        className={style.close}
+        onClick={() => {
+          setEditMode(false);
+          setActive(false);
+        }}
+      ></span>
     </Modal>
   );
 };

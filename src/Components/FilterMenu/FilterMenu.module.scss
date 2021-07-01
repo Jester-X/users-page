@@ -1,0 +1,21 @@
+.filterMenu {
+  position: fixed;
+  top: 9vh;
+  right: 0;
+  margin: 2.5px 0;
+  border: 1px solid white;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgba(41, 32, 32, 0.781);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(100%);
+  transition: transform 0.55s ease-out;
+  &.active {
+    transform: translateX(0);
+  }
+  h2 {
+    margin: 5px 0;
+  }
+}

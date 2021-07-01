@@ -17,9 +17,21 @@
   }
 
   h1 {
-    cursor: pointer;
+    cursor:pointer;
     font-size: 6.5vmin;
-    font-style: italic;
-    text-decoration: blink;
+  }
+
+  select {
+    position: fixed;
+    max-height: 100%;
+    height: 30px;
+    top: 1;
+    right: 30px;
+    margin-right: 2.5vw;
+    cursor: pointer;
+    background-color:salmon;
+    border: none;
+    border-radius: 3px;
+    text-align: center;
   }
 }

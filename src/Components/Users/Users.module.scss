@@ -5,7 +5,7 @@
   margin-top: 1vh;
   width: 90vw;
   max-width: 800px;
-  max-height: 85vh;
+  max-height: 75vh;
   border: 1px solid rgb(238, 152, 212);
   border-radius: 3%;
   .usersList {
@@ -39,15 +39,15 @@
  
   text-align: center;
   button {
-    margin: 1rem 2rem;
-    padding: 1rem;
+    margin: .5rem 1rem;
+    padding: .8rem;
     cursor: pointer;
     border: 1.5px solid lightblue;
     border-radius: 8px;
     background-color:rgb(241, 95, 234);
     opacity: 1;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     transition: box-shadow 0.28s ease;
     align-self: center;
     &:hover {

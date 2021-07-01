@@ -1,0 +1,70 @@
+form {
+  width: 100%;
+  color: #111;
+  .field {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: seashell;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 8px 8px;
+    text-align: center;
+    overflow: hidden;
+
+    label {
+      font-size: 16px;
+    }
+    input {
+      max-width: 100%;
+      border-radius: 5px;
+      border: 2px solid grey;
+      font-size: 14px;
+      margin-right: 5px;
+      line-height: 25px;
+      padding: 2px;
+      outline: none;
+    }
+    span {
+      margin: 3px 3px;
+      font-size: 16px;
+      color: red;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex: row wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
+    max-height: 100%;
+    button {
+      border: none;
+      border-radius: 10px;
+      background-color: rgb(219, 248, 248);
+      color: #111;
+      padding: 8px 16px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 0.8rem 0.6rem 0.5rem 0.6rem;
+      transition: all 0.32s ease;
+    }
+
+    .searchBtn {
+      &:hover {
+        box-shadow: 0px 0px 15px blue;
+        color: blue;
+      }
+    }
+    .resetBtn {
+      &:hover {
+        box-shadow: 0px 0px 15px orangered;
+        color: orangered;
+      }
+    }
+  }
+}

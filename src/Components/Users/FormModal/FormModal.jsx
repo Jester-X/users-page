@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
 import { Form, Field } from "react-final-form";
-
 import style from "./FormModal.module.scss";
 import {
   composeValidators,
@@ -9,8 +8,10 @@ import {
   isValidEmail,
   isValidAge,
 } from "../../../validators/validators";
+import { useTranslation } from "react-i18next";
 
 const FormModal = ({ onSubmit, active, setActive }) => {
+  const { t } = useTranslation();
   return (
     <Modal
       isOpen={active}
@@ -25,13 +26,23 @@ const FormModal = ({ onSubmit, active, setActive }) => {
           submitting: true,
         }}
       >
-        {({ handleSubmit, submitError, form, submitting, pristine }) => (
+        {({ handleSubmit, form, submitting, pristine }) => (
           <form onSubmit={handleSubmit}>
             <Field name="Name" validate={required}>
               {({ input, meta }) => (
-                <div className={style.field}>
-                  <label>Name:</label>
-                  <input {...input} type="text" placeholder="Marina" />
+                <div
+                  className={`${style.field} ${
+                    (meta.error || meta.submitError) &&
+                    meta.touched &&
+                    style.error
+                  }`}
+                >
+                  <label>{t("users.formModal.name")}:</label>
+                  <input
+                    {...input}
+                    type="text"
+                    placeholder={t("users.formModal.placeholder.name")}
+                  />
                   {meta.error && meta.touched && <span>{meta.error}</span>}
                 </div>
               )}
@@ -42,9 +53,15 @@ const FormModal = ({ onSubmit, active, setActive }) => {
               validate={composeValidators(required, isValidAge)}
             >
               {({ input, meta }) => (
-                <div className={style.field}>
-                  <label>Age:</label>
-                  <input {...input} type="number" placeholder="18" />
+                <div
+                  className={`${style.field} ${
+                    (meta.error || meta.submitError) &&
+                    meta.touched &&
+                    style.error
+                  }`}
+                >
+                  <label>{t("users.formModal.age")}:</label>
+                  <input {...input} type="text" placeholder="18" />
                   {meta.error && meta.touched && <span>{meta.error}</span>}
                 </div>
               )}
@@ -55,8 +72,14 @@ const FormModal = ({ onSubmit, active, setActive }) => {
               validate={composeValidators(required, isValidEmail)}
             >
               {({ input, meta }) => (
-                <div className={style.field}>
-                  <label>Email:</label>
+                <div
+                  className={`${style.field} ${
+                    (meta.error || meta.submitError) &&
+                    meta.touched &&
+                    style.error
+                  }`}
+                >
+                  <label>{t("users.formModal.email")}:</label>
                   <input
                     {...input}
                     type="email"
@@ -72,16 +95,15 @@ const FormModal = ({ onSubmit, active, setActive }) => {
             <Field name="Address" component="input" type="text">
               {({ input }) => (
                 <div className={style.field}>
-                  <label>Address:</label>
+                  <label>{t("users.formModal.address")}:</label>
                   <input
                     {...input}
                     type="text"
-                    placeholder="Kyiv, Awesome street, 29"
+                    placeholder={t("users.formModal.placeholder.address")}
                   />
                 </div>
               )}
             </Field>
-            {submitError && <div className="error">{submitError}</div>}
             <div className={style.buttons}>
               <button
                 className={style.resetBtn}
@@ -89,14 +111,14 @@ const FormModal = ({ onSubmit, active, setActive }) => {
                 onClick={form.reset}
                 disabled={submitting || pristine}
               >
-                Reset
+                {t("users.formModal.resetBtn")}
               </button>
               <button
                 className={style.createBtn}
                 type="submit"
                 disabled={submitting | pristine}
               >
-                Create
+                {t("users.formModal.createBtn")}
               </button>
             </div>
           </form>

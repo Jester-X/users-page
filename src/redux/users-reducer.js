@@ -24,7 +24,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         selectedUser: {
           ...action.user,
-          id: action.userId
+          id: action.userId,
         },
       };
     }
@@ -50,11 +50,18 @@ const setSelectedUser = (user, userId) => ({
   userId,
 });
 
-export const requestUsers = () => async (dispatch) => {
+export const requestUsers = (obj) => async (dispatch) => {
   dispatch(toggleIsFetching(true));
-  let data = await usersAPI.requestUsers();
-  dispatch(toggleIsFetching(false));
-  dispatch(setUsers(data));
+  if (obj) {
+    let { Name, Age, Email, Address } = obj;
+    let data = await usersAPI.requestUsers(Name, Age, Email, Address);
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data));
+  } else {
+    let data = await usersAPI.requestUsers();
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data));
+  }
 };
 
 export const requestSelectedUser = (userId) => async (dispatch) => {
@@ -65,18 +72,27 @@ export const requestSelectedUser = (userId) => async (dispatch) => {
 };
 
 export const createUser = (user) => async (dispatch) => {
- dispatch(toggleIsFetching(true));
-  await usersAPI.createUser(user)
- dispatch(toggleIsFetching(false));
- dispatch(requestUsers())
-}
+  dispatch(toggleIsFetching(true));
+  await usersAPI.createUser(user);
+  dispatch(toggleIsFetching(false));
+  dispatch(requestUsers());
+};
+
+export const updateUser = (user, userId) => async (dispatch) => {
+  dispatch(toggleIsFetching(true));
+  await usersAPI.updateUser(user, userId).then((result) => {
+    dispatch(setSelectedUser(result.data, userId));
+    dispatch(requestUsers());
+  });
+  dispatch(toggleIsFetching(false));
+};
 
 export const deleteUser = (userId) => async (dispatch) => {
   dispatch(toggleIsFetching(true));
   await usersAPI.deleteUser(userId);
   dispatch(toggleIsFetching(false));
   dispatch(setSelectedUser({}));
-  dispatch(requestUsers())
+  dispatch(requestUsers());
 };
 
 export default usersReducer;

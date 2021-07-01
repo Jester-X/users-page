@@ -1,0 +1,36 @@
+.burgerWrapper {
+  position: fixed;
+  max-height: 100%;
+  width: 30px;
+  height: 20px;
+  top: 1;
+  right: 0;
+  margin-right: 2vw;
+  cursor: pointer;
+  & > .burgerBtn {
+    & > span {
+      position: absolute;
+      top: 9px;
+      width: 30px;
+      background-color: #fff;
+      height: 2px;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 30px;
+      background-color: #fff;
+      height: 2px;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 30px;
+      background-color: #fff;
+      height: 2px;
+    }
+  }
+}
